@@ -1,0 +1,76 @@
+import java.util.Scanner;
+
+public class Parking {
+    private static final int MAX_VEHICULOS = 5;
+    private String[] placas = new String[MAX_VEHICULOS];
+    private String[] marcas = new String[MAX_VEHICULOS];
+    private String[] nombres = new String[MAX_VEHICULOS];
+    private String[] telefonos = new String[MAX_VEHICULOS];
+    private int vehiculosActuales = 0;
+
+    public void ingresarVehiculo() {
+        if (vehiculosActuales >= MAX_VEHICULOS) {
+            System.out.println("El parqueadero está lleno, no se pueden ingresar más vehículos.");
+            return;
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la placa del vehículo: ");
+        String placa = scanner.nextLine();
+
+        for (int i = 0; i < vehiculosActuales; i++) {
+            if (placa.equals(placas[i])) {
+                System.out.println("Este vehículo ya se encuentra en el parking.");
+                return;
+            }
+        }
+
+        System.out.print("Ingrese la marca del vehículo: ");
+        String marca = scanner.nextLine();
+        System.out.print("Ingrese el nombre completo del cliente: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Ingrese el número de teléfono del cliente: ");
+        String telefono = scanner.nextLine();
+
+        placas[vehiculosActuales] = placa;
+        marcas[vehiculosActuales] = marca;
+        nombres[vehiculosActuales] = nombre;
+        telefonos[vehiculosActuales] = telefono;
+        vehiculosActuales++;
+
+        System.out.println("El vehículo ha sido ingresado correctamente.");
+    }
+
+    public void retirarVehiculo() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la placa del vehículo a retirar: ");
+        String placa = scanner.nextLine();
+
+        for (int i = 0; i < vehiculosActuales; i++) {
+            if (placa.equals(placas[i])) {
+                System.out.println("El vehículo con placa " + placa + " ha sido retirado correctamente.");
+                placas[i] = placas[vehiculosActuales - 1];
+                marcas[i] = marcas[vehiculosActuales - 1];
+                nombres[i] = nombres[vehiculosActuales - 1];
+                telefonos[i] = telefonos[vehiculosActuales - 1];
+                vehiculosActuales--;
+                return;
+            }
+        }
+
+        System.out.println("No se encontró ningún vehículo con la placa " + placa + " en el parking.");
+    }
+
+    public void consultarVehiculo() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la placa del vehículo a consultar: ");
+        String placa = scanner.nextLine();
+
+        for (int i = 0; i < vehiculosActuales; i++) {
+            if (placa.equals(placas[i])) {
+                System.out.println("El vehículo con placa " + placa + " se encuentra en el parking.");
+                return;
+            }
+        }
+
+        System.out.println("No se encontró ningún vehículo con la placa " + placa);
